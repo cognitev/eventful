@@ -12,7 +12,7 @@ config :logger, level: :warn
 # Configure your database
 config :eventful, Eventful.Repo,
   username: "root",
-  password: "",
+  password: System.get_env("DB_PASSWORD"),
   database: "eventful_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
