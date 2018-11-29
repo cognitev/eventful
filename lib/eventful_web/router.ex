@@ -20,6 +20,7 @@ defmodule EventfulWeb.Router do
     resources "/topics", TopicController
     resources "/subscriptions", SubscriptionController
     resources "/events", EventController
+    resources "/event_logs", EventLogController
   end
 
   # Other scopes may use custom stacks.
@@ -29,5 +30,6 @@ defmodule EventfulWeb.Router do
     resources "/topics", EventfulWeb.Api.TopicController
     resources "/subscriptions", EventfulWeb.Api.SubscriptionController
     resources "/events", EventfulWeb.Api.EventController
+    resources "/event_logs", EventfulWeb.Api.EventLogController
   end
 end

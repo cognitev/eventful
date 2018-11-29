@@ -183,4 +183,63 @@ defmodule Eventful.ResourcesTest do
       assert %Ecto.Changeset{} = Resources.change_event(event)
     end
   end
+
+  describe "event_logs" do
+    alias Eventful.Resources.EventLog
+
+    @valid_attrs %{status: "some status"}
+    @update_attrs %{status: "some updated status"}
+    @invalid_attrs %{status: nil}
+
+    def event_log_fixture(attrs \\ %{}) do
+      {:ok, event_log} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Resources.create_event_log()
+
+      event_log
+    end
+
+    test "list_event_logs/0 returns all event_logs" do
+      event_log = event_log_fixture()
+      assert Resources.list_event_logs() == [event_log]
+    end
+
+    test "get_event_log!/1 returns the event_log with given id" do
+      event_log = event_log_fixture()
+      assert Resources.get_event_log!(event_log.id) == event_log
+    end
+
+    test "create_event_log/1 with valid data creates a event_log" do
+      assert {:ok, %EventLog{} = event_log} = Resources.create_event_log(@valid_attrs)
+      assert event_log.status == "some status"
+    end
+
+    test "create_event_log/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Resources.create_event_log(@invalid_attrs)
+    end
+
+    test "update_event_log/2 with valid data updates the event_log" do
+      event_log = event_log_fixture()
+      assert {:ok, %EventLog{} = event_log} = Resources.update_event_log(event_log, @update_attrs)
+      assert event_log.status == "some updated status"
+    end
+
+    test "update_event_log/2 with invalid data returns error changeset" do
+      event_log = event_log_fixture()
+      assert {:error, %Ecto.Changeset{}} = Resources.update_event_log(event_log, @invalid_attrs)
+      assert event_log == Resources.get_event_log!(event_log.id)
+    end
+
+    test "delete_event_log/1 deletes the event_log" do
+      event_log = event_log_fixture()
+      assert {:ok, %EventLog{}} = Resources.delete_event_log(event_log)
+      assert_raise Ecto.NoResultsError, fn -> Resources.get_event_log!(event_log.id) end
+    end
+
+    test "change_event_log/1 returns a event_log changeset" do
+      event_log = event_log_fixture()
+      assert %Ecto.Changeset{} = Resources.change_event_log(event_log)
+    end
+  end
 end
