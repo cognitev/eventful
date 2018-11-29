@@ -6,9 +6,11 @@ defmodule Eventful.Resources.Event do
   schema "events" do
     field :payload, :string
     field :sender_info, :string
-    field :topic_id, :id
 
     timestamps()
+
+    belongs_to :topic, Eventful.Resources.Topic
+    has_many :event_logs, Eventful.Resources.EventLog
   end
 
   @doc false

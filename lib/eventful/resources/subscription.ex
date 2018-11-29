@@ -5,9 +5,11 @@ defmodule Eventful.Resources.Subscription do
 
   schema "subscriptions" do
     field :webhook, :string
-    field :topic_id, :id
 
     timestamps()
+
+    belongs_to :topic, Eventful.Resources.Topic
+    has_many :event_logs, Eventful.Resources.EventLog
   end
 
   @doc false

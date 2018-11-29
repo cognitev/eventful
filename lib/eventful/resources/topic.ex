@@ -8,6 +8,9 @@ defmodule Eventful.Resources.Topic do
     field :identifier, :string
 
     timestamps()
+
+    has_many :subscriptions, Eventful.Resources.Subscription
+    has_many :events, Eventful.Resources.Event
   end
 
   @doc false

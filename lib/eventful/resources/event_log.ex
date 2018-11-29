@@ -5,10 +5,11 @@ defmodule Eventful.Resources.EventLog do
 
   schema "event_logs" do
     field :status, :string
-    field :subscription_id, :id
-    field :event_id, :id
 
     timestamps()
+
+    belongs_to :event, Eventful.Resources.Event
+    belongs_to :subscription, Eventful.Resources.Subscription
   end
 
   @doc false
