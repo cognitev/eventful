@@ -17,10 +17,13 @@ defmodule EventfulWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/topics", TopicController
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", EventfulWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", as: :api do
+    pipe_through :api
+
+    resources "/topics", EventfulWeb.Api.TopicController
+  end
 end

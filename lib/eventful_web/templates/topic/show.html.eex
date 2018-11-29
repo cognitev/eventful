@@ -1,0 +1,18 @@
+<h1>Show Topic</h1>
+
+<ul>
+
+  <li>
+    <strong>Identifier:</strong>
+    <%= @topic.identifier %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @topic.description %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.topic_path(@conn, :edit, @topic) %></span>
+<span><%= link "Back", to: Routes.topic_path(@conn, :index) %></span>
