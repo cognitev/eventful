@@ -1,0 +1,13 @@
+<h1>Show Event log</h1>
+
+<ul>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @event_log.status %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.event_log_path(@conn, :edit, @event_log) %></span>
+<span><%= link "Back", to: Routes.event_log_path(@conn, :index) %></span>
