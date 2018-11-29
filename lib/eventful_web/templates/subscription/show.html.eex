@@ -1,0 +1,13 @@
+<h1>Show Subscription</h1>
+
+<ul>
+
+  <li>
+    <strong>Webhook:</strong>
+    <%= @subscription.webhook %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.subscription_path(@conn, :edit, @subscription) %></span>
+<span><%= link "Back", to: Routes.subscription_path(@conn, :index) %></span>

@@ -1,0 +1,5 @@
+<h1>Edit Subscription</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.subscription_path(@conn, :update, @subscription)) %>
+
+<span><%= link "Back", to: Routes.subscription_path(@conn, :index) %></span>

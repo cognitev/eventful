@@ -1,0 +1,26 @@
+<h1>Listing Subscriptions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Webhook</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for subscription <- @subscriptions do %>
+    <tr>
+      <td><%= subscription.webhook %></td>
+
+      <td>
+        <%= link "Show", to: Routes.subscription_path(@conn, :show, subscription) %>
+        <%= link "Edit", to: Routes.subscription_path(@conn, :edit, subscription) %>
+        <%= link "Delete", to: Routes.subscription_path(@conn, :delete, subscription), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Subscription", to: Routes.subscription_path(@conn, :new) %></span>
