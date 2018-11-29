@@ -1,0 +1,28 @@
+<h1>Listing Events</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sender info</th>
+      <th>Payload</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for event <- @events do %>
+    <tr>
+      <td><%= event.sender_info %></td>
+      <td><%= event.payload %></td>
+
+      <td>
+        <%= link "Show", to: Routes.event_path(@conn, :show, event) %>
+        <%= link "Edit", to: Routes.event_path(@conn, :edit, event) %>
+        <%= link "Delete", to: Routes.event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Event", to: Routes.event_path(@conn, :new) %></span>
