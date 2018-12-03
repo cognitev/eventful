@@ -16,7 +16,7 @@ defmodule Eventful.Resources.Event do
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:sender_info, :payload])
+    |> cast(attrs, [:sender_info, :payload, :topic_id])
     |> validate_required([:sender_info, :payload])
   end
 end

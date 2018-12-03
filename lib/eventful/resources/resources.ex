@@ -117,6 +117,13 @@ defmodule Eventful.Resources do
     Repo.all(Subscription)
   end
 
+  def get_subscriptions_for_topic(topic_id) do
+    q = from c in Subscription,
+        where: [topic_id: ^topic_id],
+        select: c
+    Repo.all(q)
+  end
+
   @doc """
   Gets a single subscription.
 
