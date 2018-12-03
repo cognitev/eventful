@@ -12,6 +12,11 @@
     <%= @event.payload %>
   </li>
 
+  <li>
+    <strong>Topic:</strong>
+    <%= @event.topic_id %>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span>

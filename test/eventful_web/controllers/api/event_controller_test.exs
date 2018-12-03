@@ -5,12 +5,8 @@ defmodule EventfulWeb.Api.EventControllerTest do
   alias Eventful.Resources.Event
 
   @create_attrs %{
-    payload: "some payload",
+    payload: %{a: 3},
     sender_info: "some sender_info"
-  }
-  @update_attrs %{
-    payload: "some updated payload",
-    sender_info: "some updated sender_info"
   }
   @invalid_attrs %{payload: nil, sender_info: nil}
 
@@ -39,7 +35,7 @@ defmodule EventfulWeb.Api.EventControllerTest do
 
       assert %{
                "id" => id,
-               "payload" => "some payload",
+               "payload" => "{\"a\":3}",
                "sender_info" => "some sender_info"
              } = json_response(conn, 200)["data"]
     end
@@ -47,41 +43,6 @@ defmodule EventfulWeb.Api.EventControllerTest do
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.api_event_path(conn, :create), event: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
-    end
-  end
-
-  describe "update event" do
-    setup [:create_event]
-
-    test "renders event when data is valid", %{conn: conn, event: %Event{id: id} = event} do
-      conn = put(conn, Routes.api_event_path(conn, :update, event), event: @update_attrs)
-      assert %{"id" => ^id} = json_response(conn, 200)["data"]
-
-      conn = get(conn, Routes.api_event_path(conn, :show, id))
-
-      assert %{
-               "id" => id,
-               "payload" => "some updated payload",
-               "sender_info" => "some updated sender_info"
-             } = json_response(conn, 200)["data"]
-    end
-
-    test "renders errors when data is invalid", %{conn: conn, event: event} do
-      conn = put(conn, Routes.api_event_path(conn, :update, event), event: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
-    end
-  end
-
-  describe "delete event" do
-    setup [:create_event]
-
-    test "deletes chosen event", %{conn: conn, event: event} do
-      conn = delete(conn, Routes.api_event_path(conn, :delete, event))
-      assert response(conn, 204)
-
-      assert_error_sent 404, fn ->
-        get(conn, Routes.api_event_path(conn, :show, event))
-      end
     end
   end
 

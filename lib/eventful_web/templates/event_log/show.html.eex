@@ -7,6 +7,16 @@
     <%= @event_log.status %>
   </li>
 
+  <li>
+    <strong>Event_id:</strong>
+    <%= @event_log.event_id %>
+  </li>
+
+  <li>
+    <strong>Subscription_id:</strong>
+    <%= @event_log.subscription_id %>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.event_log_path(@conn, :edit, @event_log) %></span>

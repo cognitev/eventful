@@ -15,7 +15,7 @@ defmodule Eventful.Resources.EventLog do
   @doc false
   def changeset(event_log, attrs) do
     event_log
-    |> cast(attrs, [:status])
+    |> cast(attrs, [:status, :event_id, :subscription_id])
     |> validate_required([:status])
   end
 end
