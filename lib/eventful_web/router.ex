@@ -29,7 +29,7 @@ defmodule EventfulWeb.Router do
 
     resources "/topics", EventfulWeb.Api.TopicController
     resources "/subscriptions", EventfulWeb.Api.SubscriptionController
-    resources "/events", EventfulWeb.Api.EventController
-    resources "/event_logs", EventfulWeb.Api.EventLogController
+    resources "/events", EventfulWeb.Api.EventController, only: [:index, :show, :create]
+    resources "/event_logs", EventfulWeb.Api.EventLogController, only: [:index]
   end
 end
