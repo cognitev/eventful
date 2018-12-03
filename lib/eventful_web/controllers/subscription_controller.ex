@@ -15,6 +15,7 @@ defmodule EventfulWeb.SubscriptionController do
   end
 
   def create(conn, %{"subscription" => subscription_params}) do
+    require IEx; IEx.pry;
     case Resources.create_subscription(subscription_params) do
       {:ok, subscription} ->
         conn
@@ -38,6 +39,8 @@ defmodule EventfulWeb.SubscriptionController do
   end
 
   def update(conn, %{"id" => id, "subscription" => subscription_params}) do
+    require IEx; IEx.pry;
+
     subscription = Resources.get_subscription!(id)
 
     case Resources.update_subscription(subscription, subscription_params) do

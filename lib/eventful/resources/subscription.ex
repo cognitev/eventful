@@ -15,7 +15,7 @@ defmodule Eventful.Resources.Subscription do
   @doc false
   def changeset(subscription, attrs) do
     subscription
-    |> cast(attrs, [:webhook])
+    |> cast(attrs, [:webhook, :topic_id])
     |> validate_required([:webhook])
   end
 end

@@ -7,6 +7,11 @@
     <%= @subscription.webhook %>
   </li>
 
+  <li>
+    <strong>Topic:</strong>
+    <%= @subscription.topic_id %>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.subscription_path(@conn, :edit, @subscription) %></span>

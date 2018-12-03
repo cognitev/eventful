@@ -9,6 +9,10 @@
   <%= text_input f, :webhook %>
   <%= error_tag f, :webhook %>
 
+  <%= label f, :topic_id %>
+  <%= text_input f, :topic_id %>
+  <%= error_tag f, :topic_id %>
+
   <div>
     <%= submit "Save" %>
   </div>
