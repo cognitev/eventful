@@ -31,4 +31,5 @@ COPY . .
 RUN mix compile
 
 # Run Ecto migrations and Phoenix server as an initial command
-CMD mix do ecto.migrate, phx.server
+ENTRYPOINT ["./run.sh"]
+CMD ["eventful"]
