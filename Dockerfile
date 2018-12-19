@@ -31,7 +31,5 @@ COPY . .
 # Compile the entire project
 RUN mix compile
 
-# RUN mix phx.digest
-
 # Run Ecto migrations and Phoenix server as an initial command
 CMD ["./run.sh"]

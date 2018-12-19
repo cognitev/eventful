@@ -2,22 +2,15 @@ version: '3.3'
 
 services:
   db:
-    image: mysql
+    image: mysql:5.7
     ports:
       - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "password"
-      # MYSQL_DATABASE: eventful_dev
-
-  # # Separate database for testing (since it gets deleted)
-  # dbTest:
-  #   <<: *DB
-  #   environment:
-  #     MYSQL_DATABASE: eventful_test
 
   local:
     build: .
-    command: sh -c "mix ecto.create && xmix ecto.migrate && mix phoenix.server"
+    command: /app/local.sh
     ports:
       - 4000
     environment: &ENV
@@ -35,7 +28,7 @@ services:
 
   test:
     build: .
-    command: sh -c "mix ecto.create && mix ecto.migrate && mix test"
+    command: /app/test.sh
     environment:
       DB_PASSWORD: password
       DB_NAME: eventful_test
