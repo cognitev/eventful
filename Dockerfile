@@ -1,12 +1,13 @@
 FROM elixir:1.7.4
 
-WORKDIR /mc/eventful
+WORKDIR /app
+
 
 # Configure required environment
 ENV MIX_ENV prod
 
 # Set and expose PORT environmental variable
-ENV PORT 9000
+ENV PORT 4000
 EXPOSE $PORT
 
 # Install hex (Elixir package manager)
@@ -30,6 +31,7 @@ COPY . .
 # Compile the entire project
 RUN mix compile
 
+RUN mix phx.digest
+
 # Run Ecto migrations and Phoenix server as an initial command
-ENTRYPOINT ["./run.sh"]
-CMD ["eventful"]
+CMD ["./run.sh"]

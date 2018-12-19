@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      # MYSQL_DATABASE: eventful_dev
+
+  # # Separate database for testing (since it gets deleted)
+  # dbTest:
+  #   <<: *DB
+  #   environment:
+  #     MYSQL_DATABASE: eventful_test
+
+  local:
+    build: .
+    command: sh -c "mix ecto.create && xmix ecto.migrate && mix phoenix.server"
+    ports:
+      - 4000
+    environment: &ENV
+      VIRTUAL_HOST: api.local.dockito.org
+      VIRTUAL_PORT: 4000
+      DB_PASSWORD: password
+      DB_NAME: eventful_dev
+      DB_HOST: db
+    volumes:
+        - ./:/app
+    links:
+      - db
+    depends_on:
+      - db
+
+  test:
+    build: .
+    command: sh -c "mix ecto.create && mix ecto.migrate && mix test"
+    environment:
+      DB_PASSWORD: password
+      DB_NAME: eventful_test
+      DB_HOST: db
+    volumes:
+        - ./:/app
+    links:
+      - db
+    depends_on:
+      - db
