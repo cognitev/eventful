@@ -1,7 +1,12 @@
 FROM elixir:1.7.4
 
-WORKDIR /app
 
+# install node
+RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt-get install nodejs
+
+WORKDIR /app
 
 # Configure required environment
 ENV MIX_ENV prod
