@@ -12,8 +12,5 @@ before_install:
 
   - docker-compose --version
 
-install:
-  - docker-compose up test -d test
-
 script:
-  - docker-compose run -e "MIX_ENV=test" test mix test
+  - docker-compose up --build test
