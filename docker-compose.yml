@@ -17,6 +17,7 @@ services:
       DB_PASSWORD: password
       DB_NAME: eventful_dev
       DB_HOST: db
+      MIX_ENV: dev
     volumes:
         - ./:/app
     links:
@@ -31,6 +32,7 @@ services:
       DB_PASSWORD: password
       DB_NAME: eventful_test
       DB_HOST: db
+      MIX_ENV: test
     volumes:
         - ./:/app
     links:
