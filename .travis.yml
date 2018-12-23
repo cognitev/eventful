@@ -4,11 +4,18 @@ elixir:
   - 1.7.4
 
 services:
-  - mysql
+  - docker
 
-before_script:
-  - cp config/travis.exs config/test.exs
-  - mix do ecto.create, ecto.migrate
+env:
+  DOCKER_COMPOSE_VERSION: 1.18.0
 
-script:
-  - mix test
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+  - docker-compose --version
+
+install:
+  - docker-compose up --build test

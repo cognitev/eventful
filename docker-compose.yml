@@ -14,8 +14,6 @@ services:
     ports:
       - 4000
     environment: &ENV
-      VIRTUAL_HOST: api.local.dockito.org
-      VIRTUAL_PORT: 4000
       DB_PASSWORD: password
       DB_NAME: eventful_dev
       DB_HOST: db
