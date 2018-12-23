@@ -20,7 +20,7 @@ defmodule Eventful.MixProject do
   def application do
     [
       mod: {Eventful.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :exq]
     ]
   end
 
@@ -44,7 +44,8 @@ defmodule Eventful.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.4"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:exq, "~> 0.12.2"}
     ]
   end
 
