@@ -30,11 +30,20 @@ RUN mix deps.get --only prod
 # Compile all dependencies
 RUN mix deps.compile
 
+# Compile assets
+COPY assets ./assets
+
+RUN sh -c "cd assets && npm install"
+
+RUN sh -c "cd assets && node node_modules/brunch/bin/brunch build && npm run deploy"
+
 # Copy all application files
 COPY . .
 
 # Compile the entire project
 RUN mix compile
+
+RUN mix phx.digest
 
 # Run Ecto migrations and Phoenix server as an initial command
 CMD ["./run.sh"]
