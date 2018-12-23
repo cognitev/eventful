@@ -2,6 +2,7 @@
 
 set -x
 
+MIX_ENV=dev
 
 mix ecto.create
 mix ecto.migrate
