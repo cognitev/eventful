@@ -34,12 +34,12 @@ defmodule EventfulWeb.EventLogControllerTest do
       assert redirected_to(conn) == Routes.event_log_path(conn, :show, id)
 
       conn = get(conn, Routes.event_log_path(conn, :show, id))
-      assert html_response(conn, 300) =~ "Show Event log"
+      assert html_response(conn, 200) =~ "Show Event log"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.event_log_path(conn, :create), event_log: @invalid_attrs)
-      assert html_response(conn, 300) =~ "New Event log"
+      assert html_response(conn, 200) =~ "New Event log"
     end
   end
 
