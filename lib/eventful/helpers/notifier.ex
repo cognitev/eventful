@@ -2,25 +2,28 @@ defmodule Eventful.Notifier do
   require Logger
   require HTTPoison
   alias Eventful.Resources
+  alias Eventful.Repo
   use Task
 
   def fanout(event) do
     Enum.each(Resources.get_subscriptions_for_topic(event.topic_id), fn(subscription) ->
-      Exq.enqueue(Exq, "events", __MODULE__, [event, subscription], max_retries: subscription.max_retries)
+      Exq.enqueue(Exq, "events", __MODULE__, [event.id, subscription.id], max_retries: (if subscription.max_retries != 0, do: subscription.max_retries, else: System.get_env("max_retries") || 10))
     end)
   end
 
 
-  def perform(event, subscription) do
-    Logger.info("fire event: #{event["id"]} for subscription: #{subscription["id"]}")
-    case HTTPoison.post(subscription["webhook"], event["payload"], %{"Content-Type" => "application/json"}) do
+  def perform(event_id, subscription_id) do
+    event = Repo.get(Eventful.Resources.Event, event_id)
+    subscription = Repo.get(Eventful.Resources.Subscription, subscription_id)
+    Logger.info("fire event: #{event.id} for subscription: #{subscription.id}")
+    case HTTPoison.post(subscription.webhook, event.payload, %{"Content-Type" => "application/json"}) do
       {:ok, %{status_code: 200}} ->
-        Resources.create_event_log(%{status: "ok", event_id: event["id"], subscription_id: subscription["id"]})
+        Resources.create_event_log(%{status: "ok", event_id: event.id, subscription_id: subscription.id})
 
       {status, response} ->
-        Resources.create_event_log(%{status: "failed", event_id: event["id"], subscription_id: subscription["id"]})
+        Resources.create_event_log(%{status: "failed", event_id: event.id, subscription_id: subscription.id})
         Logger.error("status: #{status}, response: #{inspect(response)}")
-        raise TaskError
+        raise TaskError, "error: #{inspect(response)} for webhook #{subscription.webhook}"
     end
   end
 end

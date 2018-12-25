@@ -2,7 +2,6 @@ defmodule Eventful.Resources.Event do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Poison.Encoder, only: [:id, :payload, :sender_info, :topic_id]}
   schema "events" do
     field :payload, :string
     field :sender_info, :string

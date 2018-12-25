@@ -13,6 +13,10 @@
   <%= text_input f, :topic_id %>
   <%= error_tag f, :topic_id %>
 
+  <%= label f, :max_retries %>
+  <%= text_input f, :max_retries %>
+  <%= error_tag f, :max_retries %>
+  
   <div>
     <%= submit "Save" %>
   </div>

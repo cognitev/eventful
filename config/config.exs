@@ -31,7 +31,7 @@ import_config "#{Mix.env()}.exs"
 
 config :exq,
   name: Exq,
-  host: "127.0.0.1",
+  host: System.get_env("redis_host") || "127.0.0.1",
   port: 6379,
   namespace: "exq",
   concurrency: 500,

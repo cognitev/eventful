@@ -2,7 +2,6 @@ defmodule Eventful.Resources.Subscription do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Poison.Encoder, only: [:id, :webhook, :max_retries, :topic_id]}
   schema "subscriptions" do
     field :webhook, :string
     field :max_retries, :integer, default: 0
