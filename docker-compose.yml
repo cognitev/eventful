@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+
+  web:
+    build: .
+    command: /app/local.sh
+    ports:
+      - 4000
+    environment: &ENV
+      DB_PASSWORD: password
+      DB_NAME: eventful_dev
+      DB_HOST: db
+      MIX_ENV: dev
+    volumes:
+        - ./:/app
+    links:
+      - db
+    depends_on:
+      - db
