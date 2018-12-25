@@ -3,9 +3,9 @@ set -x
 
 MIX_ENV=test
 
-mix deps.get
 mix ecto.drop
 mix ecto.create
+mix deps.get
 mix ecto.migrate
 mix test
 
