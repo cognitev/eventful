@@ -8,6 +8,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "password"
 
+  redis:
+    image: redis
+
   local:
     build: .
     command: /app/local.sh
@@ -18,12 +21,15 @@ services:
       DB_NAME: eventful_dev
       DB_HOST: db
       MIX_ENV: dev
+      REDIS_URL: redis
     volumes:
         - ./:/app
     links:
       - db
+      - redis
     depends_on:
       - db
+      - redis
 
   test:
     build: .
@@ -33,9 +39,12 @@ services:
       DB_NAME: eventful_test
       DB_HOST: db
       MIX_ENV: test
+      REDIS_URL: redis
     volumes:
         - ./:/app
     links:
       - db
+      - redis
     depends_on:
       - db
+      - redis
