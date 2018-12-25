@@ -68,8 +68,8 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
 config :eventful, Eventful.Repo,
-  username: "root",
+  username: System.get_env("DB_USERNAME") || "root",
   password: System.get_env("DB_PASSWORD"),
-  database: "eventful_dev",
-  hostname: "localhost",
+  database: System.get_env("DB_NAME") || "eventful_dev",
+  hostname: System.get_env("DB_HOST") || "localhost",
   pool_size: 10
