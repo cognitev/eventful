@@ -1,15 +1,29 @@
-language: elixir
+services:
+  - docker
 
-elixir:
-  - 1.7.4
+env:
+  DOCKER_COMPOSE_VERSION: 1.18.0
 
+<<<<<<< HEAD
 services:
   - mysql
   - redis-server
+=======
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+>>>>>>> 4fbb62d3428e57e98088d28d4252c39e8d32fd4e
 
-before_script:
-  - cp config/travis.exs config/test.exs
-  - mix do ecto.create, ecto.migrate
+  - docker-compose --version
+  - docker-compose build test
 
 script:
-  - mix test
+  - docker-compose run test sh test.sh
+
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master
