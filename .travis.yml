@@ -4,17 +4,11 @@ services:
 env:
   DOCKER_COMPOSE_VERSION: 1.18.0
 
-<<<<<<< HEAD
-services:
-  - mysql
-  - redis-server
-=======
 before_install:
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
->>>>>>> 4fbb62d3428e57e98088d28d4252c39e8d32fd4e
 
   - docker-compose --version
   - docker-compose build test
