@@ -11,17 +11,10 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
   - docker-compose --version
-<<<<<<< HEAD
-  - docker-compose build test
-
-script:
-  - docker-compose run test sh test.sh
-=======
   - docker-compose build web
 
 script:
   - docker-compose run web sh test.sh
->>>>>>> 2c20431b5ae48766f05cfacc18c9b9016b400d73
 
 deploy:
   provider: script

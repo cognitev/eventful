@@ -8,11 +8,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "password"
 
-<<<<<<< HEAD
-  local:
-=======
   web:
->>>>>>> 2c20431b5ae48766f05cfacc18c9b9016b400d73
     build: .
     command: /app/local.sh
     ports:
@@ -27,7 +23,6 @@ services:
     links:
       - db
     depends_on:
-<<<<<<< HEAD
       - db
 
   test:
@@ -43,6 +38,4 @@ services:
     links:
       - db
     depends_on:
-=======
->>>>>>> 2c20431b5ae48766f05cfacc18c9b9016b400d73
       - db

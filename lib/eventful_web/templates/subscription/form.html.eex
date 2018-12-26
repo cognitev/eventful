@@ -13,13 +13,10 @@
   <%= text_input f, :topic_id %>
   <%= error_tag f, :topic_id %>
 
-<<<<<<< HEAD
   <%= label f, :max_retries %>
   <%= text_input f, :max_retries %>
   <%= error_tag f, :max_retries %>
   
-=======
->>>>>>> 2c20431b5ae48766f05cfacc18c9b9016b400d73
   <div>
     <%= submit "Save" %>
   </div>
