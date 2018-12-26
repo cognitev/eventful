@@ -24,18 +24,3 @@ services:
       - db
     depends_on:
       - db
-
-  test:
-    build: .
-    command: /app/test.sh
-    environment:
-      DB_PASSWORD: password
-      DB_NAME: eventful_test
-      DB_HOST: db
-      MIX_ENV: test
-    volumes:
-        - ./:/app
-    links:
-      - db
-    depends_on:
-      - db
