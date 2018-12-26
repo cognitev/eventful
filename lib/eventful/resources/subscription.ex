@@ -4,7 +4,7 @@ defmodule Eventful.Resources.Subscription do
 
   schema "subscriptions" do
     field :webhook, :string
-    field :max_retries, :integer, default: 0
+    field :max_retries, :integer, default: nil
 
     timestamps()
 

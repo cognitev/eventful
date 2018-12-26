@@ -3,7 +3,7 @@ defmodule Eventful.Repo.Migrations.AddMaxRetriesToSubscriptions do
 
   def change do
     alter table(:subscriptions) do
-      add :max_retries, :integer, default: 0
+      add :max_retries, :integer, default: nil
     end
   end
 end

@@ -241,5 +241,17 @@ defmodule Eventful.ResourcesTest do
       event_log = event_log_fixture()
       assert %Ecto.Changeset{} = Resources.change_event_log(event_log)
     end
+
+    test "perform/2 fire the task correctly" do
+      event = event_fixture()
+      subscription = subscription_fixture(%{webhook: "https://webhook.site/9e3a025f-386e-4797-8bb1-c0f94a26c412"})
+      assert {:ok, _} = Eventful.Notifier.perform(event.id, subscription.id)
+    end
+
+    test "perform/2 raise Error with wrong webhook" do
+      event = event_fixture()
+      subscription = subscription_fixture(%{webhook: "https://test.com"})
+      assert_raise TaskError, fn -> Eventful.Notifier.perform(event.id, subscription.id) end
+    end
   end
 end
