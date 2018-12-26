@@ -5,8 +5,8 @@ set -x
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 docker build . -t eventful-web
 
-docker tag eventful-web cognitev/eventful:$TRAVIS_BUILD_NUMBER
-docker push cognitev/eventful
+docker tag eventful-web cognitev/eventful:build-$TRAVIS_BUILD_NUMBER
+docker push cognitev/eventful:build-$TRAVIS_BUILD_NUMBER
 
 docker tag eventful-web cognitev/eventful:latest
 docker push cognitev/eventful
