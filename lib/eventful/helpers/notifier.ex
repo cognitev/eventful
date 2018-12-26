@@ -7,7 +7,7 @@ defmodule Eventful.Notifier do
 
   def fanout(event) do
     Enum.each(Resources.get_subscriptions_for_topic(event.topic_id), fn(subscription) ->
-      max_retries = if subscription.max_retries != nil, do: subscription.max_retries, else: System.get_env("max_retries")
+      max_retries = subscription.max_retries || System.get_env("max_retries")
       Exq.enqueue(Exq, "events", __MODULE__, [event.id, subscription.id], max_retries: max_retries)
     end)
   end

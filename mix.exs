@@ -45,7 +45,8 @@ defmodule Eventful.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.4"},
       {:poison, "~> 3.1"},
-      {:exq, "~> 0.12.2"}
+      {:exq, "~> 0.12.2"},
+      {:mock, "~> 0.3.0", only: :test}
     ]
   end
 

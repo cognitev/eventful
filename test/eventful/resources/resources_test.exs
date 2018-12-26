@@ -1,6 +1,6 @@
 defmodule Eventful.ResourcesTest do
   use Eventful.DataCase
-
+  import Mock
   alias Eventful.Resources
 
   describe "topics" do
@@ -244,14 +244,18 @@ defmodule Eventful.ResourcesTest do
 
     test "perform/2 fire the task correctly" do
       event = event_fixture()
-      subscription = subscription_fixture(%{webhook: "https://webhook.site/9e3a025f-386e-4797-8bb1-c0f94a26c412"})
-      assert {:ok, _} = Eventful.Notifier.perform(event.id, subscription.id)
+      with_mock HTTPoison, [post: fn(_url, _payload, _headers) -> {:ok, %{status_code: 200}} end] do
+        subscription = subscription_fixture()
+        assert {:ok, _} = Eventful.Notifier.perform(event.id, subscription.id)
+      end
     end
 
     test "perform/2 raise Error with wrong webhook" do
       event = event_fixture()
-      subscription = subscription_fixture(%{webhook: "https://test.com"})
-      assert_raise TaskError, fn -> Eventful.Notifier.perform(event.id, subscription.id) end
+      subscription = subscription_fixture()
+      with_mock HTTPoison, [post: fn(_url, _payload, _headers) -> {:error, %{status_code: 500}} end] do
+        assert_raise TaskError, fn -> Eventful.Notifier.perform(event.id, subscription.id) end
+      end
     end
   end
 end
