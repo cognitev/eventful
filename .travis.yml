@@ -10,13 +10,13 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
+  - printenv | grep -i build
+
   - docker-compose --version
   - docker-compose build web
 
 script:
   - docker-compose run web sh test.sh
-  - printenv | grep -i TRAVIS
-  - echo "TRAVIS_BUILD_NUMBER: $TRAVIS_BUILD_NUMBER"
 
 deploy:
   provider: script
