@@ -20,4 +20,4 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Source: https://github.com/phoenixframework/phoenix
 
 ## Docker image
-  * https://cloud.docker.com/u/cognitev/repository/docker/cognitev/eventful
+  * https://hub.docker.com/r/cognitev/eventful
