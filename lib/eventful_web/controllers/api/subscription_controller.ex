@@ -12,6 +12,8 @@ defmodule EventfulWeb.Api.SubscriptionController do
   end
 
   def create(conn, %{"subscription" => subscription_params}) do
+    subscription_params = %{subscription_params | "headers" => Poison.encode!(subscription_params["headers"])}
+
     with {:ok, %Subscription{} = subscription} <- Resources.create_subscription(subscription_params) do
       conn
       |> put_status(:created)

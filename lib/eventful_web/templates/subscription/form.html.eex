@@ -9,6 +9,10 @@
   <%= text_input f, :webhook %>
   <%= error_tag f, :webhook %>
 
+  <%= label f, :headers %>
+  <%= text_input f, :headers %>
+  <%= error_tag f, :headers %>
+
   <%= label f, :topic_id %>
   <%= text_input f, :topic_id %>
   <%= error_tag f, :topic_id %>
@@ -16,7 +20,7 @@
   <%= label f, :max_retries %>
   <%= text_input f, :max_retries %>
   <%= error_tag f, :max_retries %>
-  
+
   <div>
     <%= submit "Save" %>
   </div>

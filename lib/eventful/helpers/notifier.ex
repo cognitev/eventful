@@ -17,7 +17,11 @@ defmodule Eventful.Notifier do
     event = Repo.get(Eventful.Resources.Event, event_id)
     subscription = Repo.get(Eventful.Resources.Subscription, subscription_id)
     Logger.info("fire event: #{event.id} for subscription: #{subscription.id}")
-    case HTTPoison.post(subscription.webhook, event.payload, %{"Content-Type" => "application/json"}) do
+
+    headers = Map.merge(Poison.decode!(subscription.headers), %{
+      "Content-Type" => "application/json"
+    })
+    case HTTPoison.post(subscription.webhook, event.payload, headers) do
       {:ok, %{status_code: 200}} ->
         Resources.create_event_log(%{status: "ok", event_id: event.id, subscription_id: subscription.id})
 
