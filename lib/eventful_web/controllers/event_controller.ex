@@ -15,8 +15,6 @@ defmodule EventfulWeb.EventController do
   end
 
   def create(conn, %{"event" => event_params}) do
-    event_params = %{event_params | "payload" => Poison.encode!(event_params["payload"])}
-
     case Resources.create_event(event_params) do
       {:ok, event} ->
         conn

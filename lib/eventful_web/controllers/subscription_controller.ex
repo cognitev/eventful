@@ -15,8 +15,6 @@ defmodule EventfulWeb.SubscriptionController do
   end
 
   def create(conn, %{"subscription" => subscription_params}) do
-    subscription_params = %{subscription_params | "headers" => Poison.encode!(subscription_params["headers"])}
-
     case Resources.create_subscription(subscription_params) do
       {:ok, subscription} ->
         conn

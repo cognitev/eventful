@@ -18,7 +18,7 @@ defmodule Eventful.Notifier do
     subscription = Repo.get(Eventful.Resources.Subscription, subscription_id)
     Logger.info("fire event: #{event.id} for subscription: #{subscription.id}")
 
-    headers = Map.merge(Poison.decode!(subscription.headers), %{
+    headers = Map.merge(Poison.decode!(subscription.headers || "{}"), %{
       "Content-Type" => "application/json"
     })
     case HTTPoison.post(subscription.webhook, event.payload, headers) do
