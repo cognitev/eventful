@@ -48,7 +48,7 @@ defmodule EventfulWeb.Api.SubscriptionController do
   defp serialized_subscription_params(subscription_params) do
     Map.merge(subscription_params, %{
       "headers" => Poison.encode!(
-        Map.get(subscription_params, "headers", "")
+        Map.get(subscription_params, "headers", %{})
       )
     })
   end
