@@ -14,7 +14,11 @@ defmodule EventfulWeb.Api.EventController do
   end
 
   def create(conn, %{"event" => event_params}) do
+    topic_name = event_params["topic_name"]
+
     event_params = %{event_params | "payload" => Poison.encode!(event_params["payload"])}
+    topic = Resources.get_topic_by_topic_name(topic_name)
+    event_params = Map.put_new(event_params, "topic_id", topic.id)
 
     with {:ok, %Event{} = event} <- Resources.create_event(event_params) do
       Eventful.Notifier.fanout(event)
