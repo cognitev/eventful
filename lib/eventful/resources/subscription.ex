@@ -4,6 +4,7 @@ defmodule Eventful.Resources.Subscription do
 
   schema "subscriptions" do
     field :webhook, :string
+    field :headers, :string
     field :max_retries, :integer, default: nil
 
     timestamps()
@@ -15,7 +16,7 @@ defmodule Eventful.Resources.Subscription do
   @doc false
   def changeset(subscription, attrs) do
     subscription
-    |> cast(attrs, [:webhook, :topic_id, :max_retries])
+    |> cast(attrs, [:webhook, :headers, :topic_id, :max_retries])
     |> validate_required([:webhook])
   end
 end

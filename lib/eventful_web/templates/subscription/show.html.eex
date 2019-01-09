@@ -8,6 +8,11 @@
   </li>
 
   <li>
+    <strong>Headers:</strong>
+    <%= @subscription.headers %>
+  </li>
+
+  <li>
     <strong>Topic:</strong>
     <%= @subscription.topic_id %>
   </li>

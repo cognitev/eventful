@@ -3,8 +3,8 @@ defmodule EventfulWeb.SubscriptionControllerTest do
 
   alias Eventful.Resources
 
-  @create_attrs %{webhook: "some webhook"}
-  @update_attrs %{webhook: "some updated webhook"}
+  @create_attrs %{webhook: "some webhook", headers: "{\"authorization\":\"admin\"}"}
+  @update_attrs %{webhook: "some updated webhook", headers: "{\"authorization\":\"admin\"}"}
   @invalid_attrs %{webhook: nil}
 
   def fixture(:subscription) do

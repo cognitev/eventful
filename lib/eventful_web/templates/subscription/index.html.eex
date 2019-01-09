@@ -12,6 +12,7 @@
 <%= for subscription <- @subscriptions do %>
     <tr>
       <td><%= subscription.webhook %></td>
+      <td><%= subscription.headers %></td>
 
       <td>
         <%= link "Show", to: Routes.subscription_path(@conn, :show, subscription) %>

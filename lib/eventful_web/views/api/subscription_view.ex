@@ -12,6 +12,7 @@ defmodule EventfulWeb.Api.SubscriptionView do
 
   def render("subscription.json", %{subscription: subscription}) do
     %{id: subscription.id,
-      webhook: subscription.webhook}
+      webhook: subscription.webhook,
+      headers: subscription.headers}
   end
 end

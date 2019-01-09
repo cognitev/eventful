@@ -5,15 +5,21 @@ defmodule EventfulWeb.Api.SubscriptionControllerTest do
   alias Eventful.Resources.Subscription
 
   @create_attrs %{
-    webhook: "some webhook"
+    webhook: "some webhook",
+    headers: %{authorization: "admin"}
   }
   @update_attrs %{
-    webhook: "some updated webhook"
+    webhook: "some updated webhook",
+    headers: %{authorization: "admin"}
   }
-  @invalid_attrs %{webhook: nil}
+  @invalid_attrs %{webhook: nil, headers: nil}
 
   def fixture(:subscription) do
-    {:ok, subscription} = Resources.create_subscription(@create_attrs)
+    deserialized_create_attrs = %{
+      webhook: "some webhook",
+      headers: "{\"authorization\":\"admin\"}"
+    }
+    {:ok, subscription} = Resources.create_subscription(deserialized_create_attrs)
     subscription
   end
 
@@ -37,7 +43,8 @@ defmodule EventfulWeb.Api.SubscriptionControllerTest do
 
       assert %{
                "id" => id,
-               "webhook" => "some webhook"
+               "webhook" => "some webhook",
+               "headers" => "{\"authorization\":\"admin\"}"
              } = json_response(conn, 200)["data"]
     end
 
@@ -58,7 +65,8 @@ defmodule EventfulWeb.Api.SubscriptionControllerTest do
 
       assert %{
                "id" => id,
-               "webhook" => "some updated webhook"
+               "webhook" => "some updated webhook",
+               "headers" => "{\"authorization\":\"admin\"}"
              } = json_response(conn, 200)["data"]
     end
 
