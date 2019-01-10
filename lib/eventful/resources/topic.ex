@@ -18,5 +18,6 @@ defmodule Eventful.Resources.Topic do
     topic
     |> cast(attrs, [:identifier, :description])
     |> validate_required([:identifier, :description])
+    |> unique_constraint(:identifier)
   end
 end

@@ -14,28 +14,21 @@ defmodule EventfulWeb.Api.EventController do
   end
 
   def create(conn, %{"event" => event_params}) do
-    
     topic_identifier = Map.get(event_params, "topic_identifier", nil)
 
+    event_params = %{event_params | "payload" => Poison.encode!(event_params["payload"])}
+    topic = Resources.get_topic_by_identifier(topic_identifier)
 
-    if not is_nil(topic_identifier) do
+    if not is_nil(topic) do
+      event_params = Map.put_new(event_params, "topic_id", topic.id)
 
-      event_params = %{event_params | "payload" => Poison.encode!(event_params["payload"])}
-      topic = Resources.get_topic_by_identifier(topic_identifier)
+      with {:ok, %Event{} = event} <- Resources.create_event(event_params) do
+        Eventful.Notifier.fanout(event)
 
-      if not is_nil(topic) do
-        event_params = Map.put_new(event_params, "topic_id", topic.id)
-
-        with {:ok, %Event{} = event} <- Resources.create_event(event_params) do
-          Eventful.Notifier.fanout(event)
-
-          conn
-          |> put_status(:created)
-          |> put_resp_header("location", Routes.api_event_path(conn, :show, event))
-          |> render("show.json", event: event)
-        end
-      else
-        {:error, :not_found}
+        conn
+        |> put_status(:created)
+        |> put_resp_header("location", Routes.api_event_path(conn, :show, event))
+        |> render("show.json", event: event)
       end
     else
       {:error, :not_found}
