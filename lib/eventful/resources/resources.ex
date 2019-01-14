@@ -122,8 +122,16 @@ defmodule Eventful.Resources do
         where: [topic_id: ^topic_id],
         select: c
     Repo.all(q)
+
   end
 
+
+  def get_topic_by_identifier(topic_identifier) do
+    query = from t in Topic,
+          where: [identifier: ^topic_identifier],
+          select: t
+    List.first(Repo.all(query))
+  end  
   @doc """
   Gets a single subscription.
 

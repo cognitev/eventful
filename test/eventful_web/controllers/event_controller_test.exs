@@ -3,9 +3,9 @@ defmodule EventfulWeb.EventControllerTest do
 
   alias Eventful.Resources
 
-  @create_attrs %{payload: "some payload", sender_info: "some sender_info"}
-  @update_attrs %{payload: "some updated payload", sender_info: "some updated sender_info"}
-  @invalid_attrs %{payload: nil, sender_info: nil}
+  @create_attrs %{payload: "some payload", sender_info: "some sender_info", topic_identifier: "some identifier"}
+  @update_attrs %{payload: "some updated payload", sender_info: "some updated sender_info", topic_identifier: "some identifier"}
+  @invalid_attrs %{payload: nil, sender_info: nil, topic_identifier: nil}
 
   def fixture(:event) do
     {:ok, event} = Resources.create_event(@create_attrs)

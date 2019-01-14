@@ -6,13 +6,21 @@ defmodule EventfulWeb.Api.EventControllerTest do
 
   @create_attrs %{
     payload: %{a: 3},
-    sender_info: "some sender_info"
+    sender_info: "some sender_info",
+    topic_identifier: "topic"
   }
-  @invalid_attrs %{payload: nil, sender_info: nil}
+  @create_topic %{description: "some description", identifier: "topic"}
+
+  @invalid_attrs %{payload: nil, sender_info: nil, topic_identifier: "topic"}
 
   def fixture(:event) do
     {:ok, event} = Resources.create_event(@create_attrs)
     event
+  end
+
+  def fixture(:topic) do
+    {:ok, topic} = Resources.create_topic(@create_topic)
+    {:ok, topic: [topic]} 
   end
 
   setup %{conn: conn} do
@@ -26,7 +34,12 @@ defmodule EventfulWeb.Api.EventControllerTest do
     end
   end
 
+
   describe "create event" do
+    setup _topic do
+      fixture(:topic)
+    end
+
     test "renders event when data is valid", %{conn: conn} do
       conn = post(conn, Routes.api_event_path(conn, :create), event: @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
@@ -49,5 +62,10 @@ defmodule EventfulWeb.Api.EventControllerTest do
   defp create_event(_) do
     event = fixture(:event)
     {:ok, event: event}
+  end
+
+  defp create_topic(_) do
+    topic = fixture(:topic)
+    {:ok, topic: topic}
   end
 end
